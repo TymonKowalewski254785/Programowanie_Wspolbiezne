@@ -28,15 +28,30 @@ namespace TP.ConcurrentProgramming.Presentation.ViewModel
       Observer = ModelLayer.Subscribe<ModelIBall>(x => Balls.Add(x));
     }
 
-    #endregion ctor
+        #endregion ctor
 
-    #region public API
+        #region public API
 
-    public void Start(int numberOfBalls)
+        private int ballCount = 5;
+
+        public int BallCount
+        {
+            get => ballCount;
+            set
+            {
+                if (ballCount == value)
+                    return;
+
+                ballCount = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public void Start()
     {
       if (Disposed)
         throw new ObjectDisposedException(nameof(MainWindowViewModel));
-      ModelLayer.Start(numberOfBalls);
+      ModelLayer.Start(ballCount);
       Observer.Dispose();
     }
 

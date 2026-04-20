@@ -41,7 +41,15 @@ namespace TP.ConcurrentProgramming.Data
 
     internal void Move(Vector delta)
     {
-      Position = new Vector(Position.x + delta.x, Position.y + delta.y);
+      var newX = Position.x + delta.x;
+      var newY = Position.y + delta.y;
+
+            if (newX >= 390) newX = 390;
+            else if (newX <= 9) newX = 9;
+
+            if (newY >= 390) newY = 390;
+            else if (newY <= 9) newY = 9;
+            Position = new Vector(newX, newY);
       RaiseNewPositionChangeNotification();
     }
 

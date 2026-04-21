@@ -1,0 +1,11 @@
+<Solution>
+  <Project Path="../Project/BusinessLogic/BusinessLogic.csproj" />
+  <Project Path="../Project/BusinessLogicTest/BusinessLogicTest.csproj" />
+  <Project Path="../Project/Data/Data.csproj" />
+  <Project Path="../Project/DataTest/DataTest.csproj" />
+  <Project Path="../Project/GraphicalUserInterface/PresentationView.csproj" />
+  <Project Path="../Project/PresentationModel/PresentationModel.csproj" />
+  <Project Path="../Project/PresentationModelTest/PresentationModelTest.csproj" />
+  <Project Path="../Project/PresentationViewModel/PresentationViewModel.csproj" />
+  <Project Path="../Project/PresentationViewModelTest/PresentationViewModelTest.csproj" />
+</Solution>

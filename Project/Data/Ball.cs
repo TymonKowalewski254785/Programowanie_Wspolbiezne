@@ -39,20 +39,30 @@ namespace TP.ConcurrentProgramming.Data
       NewPositionNotification?.Invoke(this, Position);
     }
 
-    internal void Move(Vector delta)
-    {
-      var newX = Position.x + delta.x;
-      var newY = Position.y + delta.y;
+        internal void Move(Vector delta)
+        {
+            double diameter = 20;
 
-            if (newX >= 390) newX = 390;
-            else if (newX <= 9) newX = 9;
+            double width = 380;
+            double height = 400;
 
-            if (newY >= 390) newY = 390;
-            else if (newY <= 9) newY = 9;
+            double minX = 0;
+            double maxX = width - diameter;
+
+            double minY = 0;
+            double maxY = height - diameter;
+
+            double newX = Position.x + delta.x;
+            double newY = Position.y + delta.y;
+            if (newX < minX) newX = minX;
+            else if (newX > maxX) newX = maxX;
+            if (newY < minY) newY = minY;
+            else if (newY > maxY) newY = maxY;
+
             Position = new Vector(newX, newY);
-      RaiseNewPositionChangeNotification();
-    }
 
-    #endregion private
-  }
+            RaiseNewPositionChangeNotification();
+        }
+        #endregion private
+    }
 }

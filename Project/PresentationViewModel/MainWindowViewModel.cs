@@ -26,7 +26,8 @@ namespace TP.ConcurrentProgramming.Presentation.ViewModel
     {
       ModelLayer = modelLayerAPI == null ? ModelAbstractApi.CreateModel() : modelLayerAPI;
       Observer = ModelLayer.Subscribe<ModelIBall>(x => Balls.Add(x));
-    }
+            StartSimulationCommand = new RelayCommand(StartSimulation);
+        }
 
         #endregion ctor
 
@@ -46,14 +47,8 @@ namespace TP.ConcurrentProgramming.Presentation.ViewModel
                 RaisePropertyChanged();
             }
         }
+        public RelayCommand StartSimulationCommand { get; }
 
-        public void Start()
-    {
-      if (Disposed)
-        throw new ObjectDisposedException(nameof(MainWindowViewModel));
-      ModelLayer.Start(ballCount);
-      Observer.Dispose();
-    }
 
     public ObservableCollection<ModelIBall> Balls { get; } = new ObservableCollection<ModelIBall>();
 
@@ -86,11 +81,25 @@ namespace TP.ConcurrentProgramming.Presentation.ViewModel
       GC.SuppressFinalize(this);
     }
 
-    #endregion IDisposable
+        #endregion IDisposable
+        private void StartSimulation()
+        {
+            if (Disposed)
+                throw new ObjectDisposedException(nameof(MainWindowViewModel));
 
-    #region private
+            
+            ModelLayer.Stop();
 
-    private IDisposable Observer = null;
+            
+            Balls.Clear();
+
+            
+            ModelLayer.Start(BallCount);
+        }
+
+        #region private
+
+        private IDisposable Observer = null;
     private ModelAbstractApi ModelLayer;
     private bool Disposed = false;
 

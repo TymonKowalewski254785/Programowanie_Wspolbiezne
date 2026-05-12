@@ -52,9 +52,20 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Ellipse Width="{Binding Diameter}"
-                                 Height="{Binding Diameter}"
-                                 Fill="Blue" />
+
+                        <Grid Width="{Binding Diameter}"
+              Height="{Binding Diameter}">
+
+                            <Ellipse Fill="{Binding BallColor}" />
+
+                            <TextBlock Text="{Binding Mass}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontWeight="Bold"
+                       Foreground="White"/>
+
+                        </Grid>
+
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
 

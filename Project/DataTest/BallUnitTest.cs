@@ -17,7 +17,7 @@ namespace TP.ConcurrentProgramming.Data.Test
         public void MoveTestMethod()
         {
             Vector initialPosition = new(10.0, 10.0);
-            Ball newInstance = new(initialPosition, new Vector(1.0, 0.0));
+            Ball newInstance = new(initialPosition, new Vector(1.0, 0.0), 1.0);
 
             IVector currentPosition = new Vector(0.0, 0.0);
             int numberOfCallBackCalled = 0;
@@ -41,7 +41,7 @@ namespace TP.ConcurrentProgramming.Data.Test
         [TestMethod]
         public void PhysicsMove_ShouldRespectVelocity()
         {
-            Ball b = new(new Vector(0, 0), new Vector(2, 3));
+            Ball b = new(new Vector(0, 0), new Vector(2, 3), 1.0);
 
             IVector pos = null;
 
@@ -53,7 +53,7 @@ namespace TP.ConcurrentProgramming.Data.Test
                 ev.Set();
             };
 
-            b.Move(b.Velocity);
+            b.Move((Vector)b.Velocity);
 
             bool signaled = ev.WaitOne(500);
 

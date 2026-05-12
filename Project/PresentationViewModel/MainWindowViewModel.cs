@@ -48,9 +48,13 @@ namespace TP.ConcurrentProgramming.Presentation.ViewModel
             }
         }
         public RelayCommand StartSimulationCommand { get; }
+        public void Start(int numberOfBalls)
+        {
+            BallCount = numberOfBalls;
+            StartSimulation();
+        }
 
-
-    public ObservableCollection<ModelIBall> Balls { get; } = new ObservableCollection<ModelIBall>();
+        public ObservableCollection<ModelIBall> Balls { get; } = new ObservableCollection<ModelIBall>();
 
     #endregion public API
 

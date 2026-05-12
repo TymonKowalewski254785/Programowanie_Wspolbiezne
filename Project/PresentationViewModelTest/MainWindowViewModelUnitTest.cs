@@ -74,8 +74,10 @@ namespace TP.ConcurrentProgramming.Presentation.ViewModel.Test
       {
         Disposed++;
       }
-
-      public override void Start(int numberOfBalls)
+            public override void Stop()
+            {
+            }
+            public override void Start(int numberOfBalls)
       {
         Started = numberOfBalls;
       }
@@ -136,12 +138,14 @@ namespace TP.ConcurrentProgramming.Presentation.ViewModel.Test
       {
         Disposed = true;
       }
+            public override void Stop()
+            {
+            }
+            #endregion ModelAbstractApi
 
-      #endregion ModelAbstractApi
+            #region API
 
-      #region API
-
-      public event EventHandler<BallChaneEventArgs> BallChanged;
+            public event EventHandler<BallChaneEventArgs> BallChanged;
 
       #endregion API
 

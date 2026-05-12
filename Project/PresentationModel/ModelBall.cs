@@ -19,12 +19,14 @@ namespace TP.ConcurrentProgramming.Presentation.Model
 {
   internal class ModelBall : IBall
   {
-    public ModelBall(double top, double left, LogicIBall underneathBall)
+        private readonly LogicIBall _underneathBall;
+        public ModelBall(double top, double left, LogicIBall underneathBall)
     {
       TopBackingField = top;
       LeftBackingField = left;
-      underneathBall.NewPositionNotification += NewPositionNotification;
-    }
+            _underneathBall = underneathBall;
+            _underneathBall.NewPositionNotification += NewPositionNotification;
+        }
 
     #region IBall
 
@@ -52,11 +54,24 @@ namespace TP.ConcurrentProgramming.Presentation.Model
       }
     }
 
-    public double Diameter { get; init; } = 0;
+        public double Diameter { get; init; } = 20;
+        public double Mass => _underneathBall.Mass;
+        public string BallColor
+        {
+            get
+            {
+                if (Mass <= 3)
+                    return "LightBlue";
 
-    #region INotifyPropertyChanged
+                if (Mass <= 6)
+                    return "Orange";
 
-    public event PropertyChangedEventHandler PropertyChanged;
+                return "Red";
+            }
+        }
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion INotifyPropertyChanged
 

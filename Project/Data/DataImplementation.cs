@@ -46,8 +46,8 @@ namespace TP.ConcurrentProgramming.Data
                     (random.NextDouble() - 0.5) * 6,
                     (random.NextDouble() - 0.5) * 6
                 );
-
-                Ball newBall = new(startingPosition, velocity);
+                double mass = random.Next(1, 10);
+                Ball newBall = new(startingPosition, velocity,mass);
 
                 upperLayerHandler(startingPosition, newBall);
 
@@ -155,8 +155,8 @@ namespace TP.ConcurrentProgramming.Data
                         double v2n = v2.x * nx + v2.y * ny;
                         double v2t = v2.x * tx + v2.y * ty;
 
-                        double m1 = 1;
-                        double m2 = 1;
+                        double m1 = b1.Mass;
+                        double m2 = b2.Mass;
 
                         double v1nAfter =
                             (v1n * (m1 - m2) + 2 * m2 * v2n) / (m1 + m2);

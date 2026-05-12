@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>TP.ConcurrentProgramming.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-    <AssemblyName>TP.ConcurrentProgramming.$(MSBuildProjectName)</AssemblyName>
+    <AssemblyName>TP.ConcurrentProgramming.PresentationViewModel</AssemblyName>
     <VersionPrefix>4.2.0</VersionPrefix>
     <Copyright>Copyright 2022 Mariusz Postol</Copyright>
   </PropertyGroup>

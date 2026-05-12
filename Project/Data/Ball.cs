@@ -10,59 +10,93 @@
 
 namespace TP.ConcurrentProgramming.Data
 {
-  internal class Ball : IBall
-  {
-    #region ctor
-
-    internal Ball(Vector initialPosition, Vector initialVelocity)
+    internal class Ball : IBall
     {
-      Position = initialPosition;
-      Velocity = initialVelocity;
-    }
+        #region ctor
 
-    #endregion ctor
+        internal Ball(Vector initialPosition, Vector initialVelocity)
+        {
+            Position = initialPosition;
+            Velocity = initialVelocity;
+        }
 
-    #region IBall
+        #endregion ctor
 
-    public event EventHandler<IVector>? NewPositionNotification;
+        #region IBall
 
-    public IVector Velocity { get; set; }
+        public event EventHandler<IVector>? NewPositionNotification;
 
-    #endregion IBall
+        public IVector Velocity { get; set; }
 
-    #region private
+        #endregion IBall
 
-    private Vector Position;
+        #region public
 
-    private void RaiseNewPositionChangeNotification()
-    {
-      NewPositionNotification?.Invoke(this, Position);
-    }
+        public IVector CurrentPosition => Position;
+
+        #endregion public
+
+        #region private
+
+        private readonly object _lock = new();
+
+        private Vector Position;
+
+        private void RaiseNewPositionChangeNotification()
+        {
+            NewPositionNotification?.Invoke(this, Position);
+        }
 
         internal void Move(Vector delta)
         {
-            double diameter = 20;
+            lock (_lock)
+            {
+                double diameter = 20;
 
-            double width = 380;
-            double height = 400;
+                double width = 392;
+                double height = 412;
 
-            double minX = 0;
-            double maxX = width - diameter;
+                double minX = 0;
+                double maxX = width - diameter;
 
-            double minY = 0;
-            double maxY = height - diameter;
+                double minY = 0;
+                double maxY = height - diameter;
 
-            double newX = Position.x + delta.x;
-            double newY = Position.y + delta.y;
-            if (newX < minX) newX = minX;
-            else if (newX > maxX) newX = maxX;
-            if (newY < minY) newY = minY;
-            else if (newY > maxY) newY = maxY;
+                double newX = Position.x + delta.x;
+                double newY = Position.y + delta.y;
 
-            Position = new Vector(newX, newY);
+                Vector currentVelocity = (Vector)Velocity;
+
+                if (newX <= minX)
+                {
+                    newX = minX;
+                    currentVelocity = new Vector(-currentVelocity.x, currentVelocity.y);
+                }
+                else if (newX >= maxX)
+                {
+                    newX = maxX;
+                    currentVelocity = new Vector(-currentVelocity.x, currentVelocity.y);
+                }
+
+                if (newY <= minY)
+                {
+                    newY = minY;
+                    currentVelocity = new Vector(currentVelocity.x, -currentVelocity.y);
+                }
+                else if (newY >= maxY)
+                {
+                    newY = maxY;
+                    currentVelocity = new Vector(currentVelocity.x, -currentVelocity.y);
+                }
+
+                Velocity = currentVelocity;
+
+                Position = new Vector(newX, newY);
+            }
 
             RaiseNewPositionChangeNotification();
         }
+
         #endregion private
     }
 }
